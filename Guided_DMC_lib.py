@@ -1,7 +1,6 @@
 # Sijing (Paul) Zhu, Spring 2024
 # Diffusion Monte Carlo (DMC) Simulation with intramolecular harmonic guiding function
 
-
 import os
 # os.environ["OMP_NUM_THREADS"] = "1"
 # import tensorflow as tf
@@ -668,20 +667,6 @@ def trial_function_analytical_d2(walkers, kOH = kOH, reduced_mass_OH = reduced_m
                     d_molecule_d_HOH_mode, d_HOH_mode_d_angle, d_angle_d_coords, d_d_molecule_d_HOH_mode, d_d_HOH_mode_d_angle, d_d_angle_d_coords)
     
     
-    
-# '''testing d2'''
-# walkers = out.gen_walker_array(f"isomers_xyz/isomer_4.xyz", int(10), 0, 6)[0]/0.529 
-# walkers += np.random.normal(0, 0.02, size=walkers.shape)
-# print("numerical d2  O:", trial_function_numerical_d2(walkers, dtype=np.float64, epsilon=1e-3)[0, 0, 0])
-# print("analytical d2 O:", trial_function_analytical_d2(walkers, dtype=np.float64)[0, 0, 0])
-# print()
-# print("numerical d2  H1", trial_function_numerical_d2(walkers, dtype=np.float64, epsilon=1e-3)[0, 0, 1])
-# print("analytical d2 H1", trial_function_analytical_d2(walkers, dtype=np.float64)[0, 0, 1])
-# print()
-# print("numerical d2  H2", trial_function_numerical_d2(walkers, dtype=np.float64, epsilon=1e-3)[0, 0, 2])
-# print("analytical d2 H2", trial_function_analytical_d2(walkers, dtype=np.float64)[0, 0, 2])
-
-
 # Input: 4D array of walkers
 # Dimensions of (n_walkers, n_molecules, n_atoms, coordinates)
 #       n_atoms and coordinates are always both 3
@@ -824,20 +809,3 @@ def sim_loop(walkers,sim_length,dt,wf_save,equilibration_phase, dtype = np.float
     # All possible returns
     # To access a particular output: sim_loop(...)['w|r|n|s|a']
     return {"E0": E0_estimations, "E0_inter": E0_inters, "E0_intra": E0_intras, "walkers": wave_func_snapshots, "final_walkers": walkers, "populations": populations}
-
-
-
-
-'''testing functions'''
-if __name__ == "__main__":
-    # print("KOH", kOH)
-    print("mOH", reduced_mass_OH)
-    # print("KA", kA)
-    # print("mA", reduced_mass_HOH)
-    # print('mH', atomic_masses[1])
-    # print('mO', atomic_masses[0])
-    energy =  0.5*2*hbar*np.sqrt(kOH/reduced_mass_OH) + 0.5*hbar*np.sqrt(kA/reduced_mass_HOH)
-    print("total vibrational energy of single water in hartree :", energy)
-    print("total vibrational energy of single water in kcal/mol:", energy*627.503)
-    print("total vibrational energy of bond streching in cm-1:", 0.5*2*hbar*np.sqrt(kOH/reduced_mass_OH)*627.503*349.7551)
-    print("total vibrational energy of bond bending in cm-1:", hbar*np.sqrt(kA/reduced_mass_HOH)*627.503*349.7551)
