@@ -1,6 +1,4 @@
-import metropolis_lib as MMC
 import numpy as np
-import random_motions as rm
 import DMC_rs_print_xyz_lib as out
 import DMC_rs_lib as lib
 import Guided_DMC_lib as guided_lib
